@@ -21,4 +21,5 @@ services:
       DB_HOST: automatic-core-review-report-db
       DB_NAME: acr_report
       DB_USER: "acr"
+      DB_PORT: 5432
       DB_PASSWORD: "iWY3(u{SP4mK(:$l"
