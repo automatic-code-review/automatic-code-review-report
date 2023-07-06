@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  automatic-core-review-report-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "acr"
+      POSTGRES_PASSWORD: "iWY3(u{SP4mK(:$l"
+      POSTGRES_DB: "acr_report"
+
+  automatic-core-review-report-app:
+    build:
+      context: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - automatic-core-review-report-db
+    environment:
+      DB_HOST: automatic-core-review-report-db
+      DB_NAME: acr_report
+      DB_USER: "acr"
+      DB_PASSWORD: "iWY3(u{SP4mK(:$l"

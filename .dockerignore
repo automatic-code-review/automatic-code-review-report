@@ -1,0 +1,9 @@
+.idea/
+**__pycache__**
+
+*.iml
+.dockerignore
+.gitignore
+docker-compose.yml
+Dockerfile
+README.md
