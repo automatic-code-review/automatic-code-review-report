@@ -7,11 +7,11 @@
 <body>
 <div class="container mt-5">
     <div class="text-center mb-4">
-        <button class="btn btn-primary mr-2" onclick="location.href='/?pageNumber={{ nrPageNumber - 1 }}'"
+        <button class="btn btn-primary mr-2" onclick="location.href='/review?pageNumber={{ nrPageNumber - 1 }}'"
                 {% if nrPageNumber <= 1 %}disabled{% endif %}>Anterior</button>
         <button class="btn btn-success ml-2" onclick="atualizarStatus()"
                 {% if qtTotal <= 0 %}disabled{% endif %}>APPROVED</button>
-        <button class="btn btn-primary ml-2" onclick="location.href='/?pageNumber={{ nrPageNumber + 1 }}'"
+        <button class="btn btn-primary ml-2" onclick="location.href='/review?pageNumber={{ nrPageNumber + 1 }}'"
                 {% if hasNext != true <= 1 %}disabled{% endif %}>Próximo</button>
         <br><br>
         {{nrPageNumber}} de {{ qtTotal }}
