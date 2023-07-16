@@ -2,6 +2,16 @@ import psycopg2
 import os
 
 
+def check_connection():
+    try:
+        conn = connection()
+        conn.close()
+        return True
+    except psycopg2.Error as e:
+        print("Erro ao conectar ao banco de dados:", e)
+        return False
+
+
 def connection():
     db_host = os.environ.get('DB_HOST')
     db_name = os.environ.get('DB_NAME')
@@ -13,7 +23,6 @@ def connection():
 
 
 def migration():
-
     script_path = os.path.abspath(
         os.path.dirname(os.path.abspath(__file__)) + "/../resources/db/migration/V1__initial.sql")
 

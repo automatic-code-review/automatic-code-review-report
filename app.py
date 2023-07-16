@@ -56,6 +56,14 @@ def review():
     return render_template('review.html', comment=comment, qtTotal=qt_total, nrPageNumber=page_number, hasNext=has_next)
 
 
+@app.route('/health')
+def health_check():
+    if database.check_connection():
+        return "OK", 200
+    else:
+        return "Error", 500
+
+
 @app.route('/')
 def index():
     return redirect('/review')
