@@ -21,3 +21,5 @@ CREATE TABLE IF NOT EXISTS comment
     constraint un_comment_external UNIQUE (id_merge_internal, id_comment)
 );
 
+ALTER TABLE comment
+    ADD COLUMN IF NOT EXISTS dh_insercao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
