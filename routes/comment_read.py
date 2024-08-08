@@ -1,7 +1,7 @@
 from database import database
 
 
-def read(tp_status, page_size, page_number):
+def read(tp_status, page_size, page_number, workspace_name):
     conn = database.connection()
     cursor = conn.cursor()
 
@@ -9,11 +9,13 @@ def read(tp_status, page_size, page_number):
         SELECT 
             COUNT( * ) 
         FROM 
-            comment
+            comment C JOIN merge M on C.id_merge_internal = M.id_merge_internal
         WHERE
-            tp_status = %s
+            C.tp_status = %s AND
+            M.ds_workspace_name = %s
     """, (
         tp_status,
+        workspace_name
     ))
     total_count = cursor.fetchone()[0]
 
@@ -27,18 +29,20 @@ def read(tp_status, page_size, page_number):
             C.ds_type,
             C.tx_comment,
             M.ds_author_username,
-            C.tp_status
+            C.tp_status,
+            M.ds_workspace_name
         FROM
             comment C JOIN merge M on C.id_merge_internal = M.id_merge_internal
         WHERE
-            C.tp_status = %s
+            C.tp_status = %s AND
+            M.ds_workspace_name = %s
         ORDER BY
             C.id_comment_internal
         LIMIT
             %s
         OFFSET
             %s
-    """, (tp_status, page_size, offset))
+    """, (tp_status, workspace_name, page_size, offset))
     rows = cursor.fetchall()
 
     comentarios = []
@@ -49,7 +53,8 @@ def read(tp_status, page_size, page_number):
             'dsType': row[2],
             'txComment': row[3],
             'dsAuthorUsername': row[4],
-            'tpStatus': row[5]
+            'tpStatus': row[5],
+            'dsWorkspaceName': row[6],
         }
         comentarios.append(comment)
 

@@ -39,7 +39,8 @@ def read_comment():
 @app.route('/review')
 def review():
     page_number = request.args.get('pageNumber', default=1, type=int)
-    data = comment_read.read(0, 1, page_number)
+    workspace_name = request.args.get('dsWorkspaceName', default="", type=str)
+    data = comment_read.read(0, 1, page_number, workspace_name)
 
     qt_total = data['qtTotal']
     has_next = data['hasNext']
