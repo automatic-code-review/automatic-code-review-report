@@ -31,8 +31,10 @@ def create(json_data):
                 id_project,
                 id_group,
                 ds_author_username,
+                ds_workspace_name,
                 dh_merge
             ) VALUES (
+                %s,
                 %s,
                 %s,
                 %s,
@@ -44,6 +46,7 @@ def create(json_data):
             merge_data['idProject'],
             merge_data['idGroup'],
             merge_data['dsAuthorUsername'],
+            json_data['workspaceName'],
             merge_data['dhMerge']
         ))
         merge_id = cursor.fetchone()[0]
