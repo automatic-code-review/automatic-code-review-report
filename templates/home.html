@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>Automatic code review report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Workspaces</h1>
+    <ul>
+
+        {% for workspace in workspaces %}
+        <li>
+            <a href="/review?dsWorkspaceName={{workspace.dsName}}">
+                {{ workspace.dsName }} - {{ workspace.qtPendente }}
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+</div>
+</body>
+</html>

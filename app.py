@@ -65,9 +65,15 @@ def health_check():
         return "Error", 500
 
 
+@app.route('/home')
+def home():
+    workspaces = comment_read.read_workspaces(0)
+    return render_template('home.html', workspaces=workspaces)
+
+
 @app.route('/')
 def index():
-    return redirect('/review')
+    return redirect('/home')
 
 
 if __name__ == '__main__':

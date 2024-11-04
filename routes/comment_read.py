@@ -1,6 +1,35 @@
 from database import database
 
 
+def read_workspaces(tp_status):
+    conn = database.connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT 
+            M.ds_workspace_name,
+            COUNT( * ) AS qt_pendente
+        FROM 
+            comment C JOIN merge M on C.id_merge_internal = M.id_merge_internal
+        WHERE
+            C.tp_status = 0
+        GROUP BY
+            M.ds_workspace_name
+        """, ()
+    )
+    rows = cursor.fetchall()
+
+    workspaces = []
+    for row in rows:
+        workspace = {
+            'dsName': row[0],
+            'qtPendente': row[1]
+        }
+        workspaces.append(workspace)
+
+    return workspaces
+
+
 def read(tp_status, page_size, page_number, workspace_name):
     conn = database.connection()
     cursor = conn.cursor()
